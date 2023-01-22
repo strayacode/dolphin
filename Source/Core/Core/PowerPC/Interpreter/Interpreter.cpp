@@ -108,7 +108,7 @@ void Interpreter::Shutdown()
 {
 }
 
-static bool s_start_trace = false;
+static bool s_start_trace = true;
 
 static void Trace(const UGeckoInstruction& inst)
 {
@@ -126,11 +126,11 @@ static void Trace(const UGeckoInstruction& inst)
   }
 
   const std::string ppc_inst = Common::GekkoDisassembler::Disassemble(inst.hex, PC);
-  DEBUG_LOG_FMT(POWERPC,
-                "INTER PC: {:08x} SRR0: {:08x} SRR1: {:08x} CRval: {:016x} "
-                "FPSCR: {:08x} MSR: {:08x} LR: {:08x} {} {:08x} {}",
+  printf(
+                "INTER PC: %08x SRR0: %08x SRR1: %08x CRval: %016lx "
+                "FPSCR: %08x MSR: %08x LR: %08x %s %08x %s\n",
                 PC, SRR0, SRR1, PowerPC::ppcState.cr.fields[0], FPSCR.Hex, MSR.Hex,
-                PowerPC::ppcState.spr[8], regs, inst.hex, ppc_inst);
+                PowerPC::ppcState.spr[8], regs.c_str(), inst.hex, ppc_inst.c_str());
 }
 
 bool Interpreter::HandleFunctionHooking(u32 address)

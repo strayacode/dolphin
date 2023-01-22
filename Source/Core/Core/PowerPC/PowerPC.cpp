@@ -222,22 +222,7 @@ static void InitializeCPUCore(CPUCore cpu_core)
   // it is used on boot and code window independently.
   s_interpreter->Init();
 
-  switch (cpu_core)
-  {
-  case CPUCore::Interpreter:
-    s_cpu_core_base = s_interpreter;
-    break;
-
-  default:
-    s_cpu_core_base = JitInterface::InitJitCore(cpu_core);
-    if (!s_cpu_core_base)  // Handle Situations where JIT core isn't available
-    {
-      WARN_LOG_FMT(POWERPC, "CPU core {} not available. Falling back to default.",
-                   static_cast<int>(cpu_core));
-      s_cpu_core_base = JitInterface::InitJitCore(DefaultCPUCore());
-    }
-    break;
-  }
+  s_cpu_core_base = s_interpreter;
 
   s_mode = s_cpu_core_base == s_interpreter ? CoreMode::Interpreter : CoreMode::JIT;
 }
