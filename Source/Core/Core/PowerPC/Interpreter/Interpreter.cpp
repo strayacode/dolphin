@@ -127,7 +127,7 @@ static void Trace(const UGeckoInstruction& inst)
 
   const std::string ppc_inst = Common::GekkoDisassembler::Disassemble(inst.hex, PC);
   printf(
-                "INTER PC: %08x SRR0: %08x SRR1: %08x CRval: %016lx "
+                "INTER PC: %08x SRR0: %08x SRR1: %08x CRval: %016llx "
                 "FPSCR: %08x MSR: %08x LR: %08x %s %08x %s\n",
                 PC, SRR0, SRR1, PowerPC::ppcState.cr.fields[0], FPSCR.Hex, MSR.Hex,
                 PowerPC::ppcState.spr[8], regs.c_str(), inst.hex, ppc_inst.c_str());

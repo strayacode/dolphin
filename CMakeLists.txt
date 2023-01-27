@@ -61,12 +61,12 @@ option(ENABLE_GENERIC "Enables generic build that should run on any little-endia
 option(ENABLE_HEADLESS "Enables running Dolphin as a headless variant" ON)
 option(ENABLE_ALSA "Enables ALSA sound backend" ON)
 option(ENABLE_PULSEAUDIO "Enables PulseAudio sound backend" ON)
-option(ENABLE_LLVM "Enables LLVM support, for disassembly" ON)
-option(ENABLE_TESTS "Enables building the unit tests" ON)
-option(ENABLE_VULKAN "Enables vulkan video backend" ON)
-option(USE_DISCORD_PRESENCE "Enables Discord Rich Presence, show the current game on Discord" ON)
-option(USE_MGBA "Enables GBA controllers emulation using libmgba" ON)
-option(ENABLE_AUTOUPDATE "Enables support for automatic updates" ON)
+option(ENABLE_LLVM "Enables LLVM support, for disassembly" OFF)
+option(ENABLE_TESTS "Enables building the unit tests" OFF)
+option(ENABLE_VULKAN "Enables vulkan video backend" OFF)
+option(USE_DISCORD_PRESENCE "Enables Discord Rich Presence, show the current game on Discord" OFF)
+option(USE_MGBA "Enables GBA controllers emulation using libmgba" OFF)
+option(ENABLE_AUTOUPDATE "Enables support for automatic updates" OFF)
 option(STEAM "Creates a build for Steam" OFF)
 
 # Maintainers: if you consider blanket disabling this for your users, please

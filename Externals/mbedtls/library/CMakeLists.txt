@@ -117,24 +117,9 @@ set(src_tls
     ssl_tls13_keys.c
 )
 
-if(CMAKE_COMPILER_IS_GNUCC)
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wmissing-declarations -Wmissing-prototypes")
-endif(CMAKE_COMPILER_IS_GNUCC)
-
-if(CMAKE_COMPILER_IS_CLANG)
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wmissing-declarations -Wmissing-prototypes -Wdocumentation -Wno-documentation-deprecated-sync -Wunreachable-code")
-endif(CMAKE_COMPILER_IS_CLANG)
-
 if(WIN32)
     set(libs ${libs} ws2_32)
 endif(WIN32)
-
-if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-    SET(CMAKE_C_ARCHIVE_CREATE   "<CMAKE_AR> Scr <TARGET> <LINK_FLAGS> <OBJECTS>")
-    SET(CMAKE_CXX_ARCHIVE_CREATE "<CMAKE_AR> Scr <TARGET> <LINK_FLAGS> <OBJECTS>")
-    SET(CMAKE_C_ARCHIVE_FINISH   "<CMAKE_RANLIB> -no_warning_for_no_symbols -c <TARGET>")
-    SET(CMAKE_CXX_ARCHIVE_FINISH "<CMAKE_RANLIB> -no_warning_for_no_symbols -c <TARGET>")
-endif()
 
 if(HAIKU)
     set(libs ${libs} network)
