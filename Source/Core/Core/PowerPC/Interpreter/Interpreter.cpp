@@ -72,6 +72,9 @@ bool IsInvalidPairedSingleExecution(UGeckoInstruction inst)
 
 void UpdatePC()
 {
+  if (last_pc == PC && last_pc != 0) {
+    exit(0);
+  }
   last_pc = PC;
   PC = NPC;
 }
