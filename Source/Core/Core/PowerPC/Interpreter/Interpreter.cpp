@@ -112,12 +112,6 @@ static bool s_start_trace = true;
 
 static void Trace(const UGeckoInstruction& inst)
 {
-  std::string regs;
-  for (size_t i = 0; i < std::size(PowerPC::ppcState.gpr); i++)
-  {
-    regs += fmt::format("r{:02d}: {:08x} ", i, PowerPC::ppcState.gpr[i]);
-  }
-
   std::string fregs;
   for (size_t i = 0; i < std::size(PowerPC::ppcState.ps); i++)
   {
@@ -126,11 +120,21 @@ static void Trace(const UGeckoInstruction& inst)
   }
 
   const std::string ppc_inst = Common::GekkoDisassembler::Disassemble(inst.hex, PC);
+
+  for (int i = 0; i < 32; i++) {
+    printf("r%d: %08x ", i, PowerPC::ppcState.gpr[i]);
+  }
+
+  for (int i = 0; i < 32; i++) {
+    printf("f%d: %016llx %016llx ", i, PowerPC::ppcState.ps[i].PS0AsU64(), PowerPC::ppcState.ps[i].PS1AsU64());
+  }
+
   printf(
-                "INTER PC: %08x SRR0: %08x SRR1: %08x CRval: %016llx "
-                "FPSCR: %08x MSR: %08x LR: %08x %s %08x %s\n",
-                PC, SRR0, SRR1, PowerPC::ppcState.cr.fields[0], FPSCR.Hex, MSR.Hex,
-                PowerPC::ppcState.spr[8], regs.c_str(), inst.hex, ppc_inst.c_str());
+    "pc: %08x srr0: %08x srr1: %08x cr: %016llx "
+    "fpscr: %08x msr: %08x lr: %08x\n",
+    PC, SRR0, SRR1, PowerPC::ppcState.cr.fields[0], FPSCR.Hex, MSR.Hex,
+    PowerPC::ppcState.spr[8]
+  );
 }
 
 bool Interpreter::HandleFunctionHooking(u32 address)
