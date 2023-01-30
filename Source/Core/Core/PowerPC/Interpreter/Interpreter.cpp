@@ -133,9 +133,9 @@ static void Trace(const UGeckoInstruction& inst)
   }
 
   printf(
-    "pc: %08x srr0: %08x srr1: %08x cr: %016llx "
+    "pc: %08x xer: %08x srr0: %08x srr1: %08x cr: %08x "
     "fpscr: %08x msr: %08x lr: %08x\n",
-    PC, SRR0, SRR1, PowerPC::ppcState.cr.fields[0], FPSCR.Hex, MSR.Hex,
+    PC, PowerPC::GetXER().Hex, SRR0, SRR1, PowerPC::ppcState.cr.Get(), FPSCR.Hex, MSR.Hex,
     PowerPC::ppcState.spr[8]
   );
 }

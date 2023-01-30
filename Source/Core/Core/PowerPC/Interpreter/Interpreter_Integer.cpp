@@ -13,12 +13,21 @@
 
 void Interpreter::Helper_UpdateCR0(u32 value)
 {
-  const s64 sign_extended = s64{s32(value)};
-  u64 cr_val = u64(sign_extended);
-  cr_val = (cr_val & ~(1ULL << PowerPC::CR_EMU_SO_BIT)) |
-           (u64{PowerPC::GetXER_SO()} << PowerPC::CR_EMU_SO_BIT);
+  s32 result = static_cast<s32>(value);
+  u32 cr_field;
 
-  PowerPC::ppcState.cr.fields[0] = cr_val;
+  if (result < 0) {
+    cr_field = PowerPC::CR_LT;
+  } else if (result > 0) {
+    cr_field = PowerPC::CR_GT;
+  } else {
+    cr_field = PowerPC::CR_EQ;
+  }
+
+  if (PowerPC::GetXER_SO())
+    cr_field |= PowerPC::CR_SO;
+
+  PowerPC::ppcState.cr.SetField(0, cr_field);
 }
 
 u32 Interpreter::Helper_Carry(u32 value1, u32 value2)
